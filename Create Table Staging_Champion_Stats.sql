@@ -1,0 +1,46 @@
+CREATE TABLE Staging_Champion_Stats (
+    Season VARCHAR(50),
+    Event VARCHAR(100),
+    Champion VARCHAR(100),
+    Games_Contests INT,
+    Pick_Ban_Ratio FLOAT,
+    Banned_Games INT,
+    Played_Games INT,
+    Played_by_Players INT,
+    Win INT,
+    Lose INT,
+    Win_Rate FLOAT,
+    Kills INT,
+    Creep_Score INT,
+    CS_Min FLOAT,
+    Gold INT,
+    Gold_Min FLOAT,
+    Damage INT,
+    Damage_Min FLOAT,
+    Kill_Participation FLOAT,
+    Kill_Share FLOAT
+);
+
+INSERT INTO Staging_Champion_Stats
+SELECT 
+    season,
+    event,
+    champion,
+    games_contests,
+    pick_ban_ratio,
+    banned_games,
+    played_games,
+    played_by_number_of_players,
+    win,
+    lose,
+    win_rate,
+    kills,
+    creep_score,
+    cs_min,
+    gold,
+    gold_min,
+    damage,
+    damage_min,
+    kill_participation,
+    kill_share
+FROM Champion_Stats;
