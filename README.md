@@ -2,7 +2,7 @@
 Analytics dashboard for League of Legends Worlds performance and champion meta trends. IN THE MAKING :)
 
 
-##Project Deliverables
+**Project Deliverables**
 
 Short Project Summary
            How many datasets / where from
