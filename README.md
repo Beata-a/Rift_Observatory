@@ -20,6 +20,6 @@ CREATE TABLE SQL Scripts
 PowerBI Model View Screenshot
 
 DAX Measure List
-         With Explanations
+         with explanations
 
 
