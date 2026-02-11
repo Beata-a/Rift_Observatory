@@ -9,8 +9,8 @@ Short Project Summary
 
 Data Model File -           
            Data Sources, 
-           List of Tables included in the Data Model   
-           Diagram of each DIM/FACT table
+           List of Tables included in the Data Model,
+           Diagram of each DIM/FACT table,
            Schema Definitions
 
 Star Schema 
@@ -19,7 +19,7 @@ CREATE TABLE SQL Scripts
 
 PowerBI Model View Screenshot
 
-DAX Measure List
+DAX Measure List - 
          with explanations
 
 PowerBI Dashboard
