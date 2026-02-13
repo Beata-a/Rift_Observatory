@@ -6,7 +6,6 @@ CREATE TABLE DIM_Player(
 WITH PlayerList AS (
     SELECT DISTINCT Player_Name
     FROM (
-        -- From Staging_Match_Stats
         SELECT BT_Top AS Player_Name FROM Staging_Match_Stats
         UNION ALL
         SELECT BT_Jungle FROM Staging_Match_Stats
