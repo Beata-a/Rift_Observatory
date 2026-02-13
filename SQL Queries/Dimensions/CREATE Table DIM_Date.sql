@@ -1,3 +1,8 @@
+-- Deleting DIM_Date table IF it exists
+
+DROP TABLE IF EXISTS DIM_Date;
+
+
 -- Creating DIM_Date table
 
 CREATE TABLE DIM_Date (
@@ -54,6 +59,6 @@ FROM DateRange
 OPTION (MAXRECURSION 0);
 
 
--- Shows everything currently stored in DIM_Date
+-- Shows everything currently stored in DIM_Date for verification
 
 SELECT * FROM DIM_Date

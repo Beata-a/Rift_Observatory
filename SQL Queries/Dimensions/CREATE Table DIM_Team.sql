@@ -1,4 +1,9 @@
---Creating DIM_Team table
+-- Deleting DIM_Team table IF it exists
+
+DROP TABLE IF EXISTS DIM_Team;
+
+
+-- Creating DIM_Team table
 
 CREATE TABLE DIM_Team(
 	Team_ID INT IDENTITY(1,1) PRIMARY KEY,
@@ -17,15 +22,18 @@ SELECT DISTINCT Team FROM Staging_Worlds_2024
 ;
 
 
--- Using the DISTINCT values to help with cleaning There were some team names that were spelt wrng and some that had html code in them.
--- Making a new staging table for this as it is faster than trying to update a table with 1000s of rows.
+-- Using the DISTINCT values to help with cleaning There were some team names that were spelt wrng and some that had html code in them
+-- Making a new staging table for this as it is faster than trying to update a table with 1000s of rows
 -- Mapping Old and Clean Name
 
 CREATE TABLE Staging_Team_CleanMap (
     Raw_Team_Name   VARCHAR(250) PRIMARY KEY,
     Clean_Team_Name VARCHAR(250)
 );
--- Asked Copilot to write the values for this one to save some time. It was using data from a table i made in Excel.
+
+
+-- Asked Copilot to write the values for this one to save some time. It was using data from a table i made in Excel
+
 INSERT INTO Staging_Team_CleanMap (Raw_Team_Name, Clean_Team_Name)
 VALUES
 ('100_Thieves','100 Thieves'),
@@ -158,7 +166,8 @@ VALUES
 ('Xan','Xan'),
 ('Young_Generation','Young Generation');
 
---Using the newly mapped names, to update the other staging tables so that all data is accurate.
+
+-- Using the newly mapped names, to update the other staging tables so that all data is accurate
 
 UPDATE S
 SET S.Team = M.Clean_Team_Name
@@ -197,7 +206,8 @@ FROM Staging_Worlds_2024 S
 JOIN Staging_Team_CleanMap M
     ON S.Opponent_Team = M.Raw_Team_Name;
 
--- Removing all data from DIM_Team to then populate it using my new names, as well as other things that I manually tracked.
+
+-- Removing all data from DIM_Team to then populate it using my new names, as well as other things that I manually tracked
 
 TRUNCATE TABLE DIM_Team;
 
@@ -211,8 +221,10 @@ SELECT DISTINCT Team FROM Staging_Worlds_2024;
 UPDATE DIM_Team
 SET Team_Name_Clean = Team_Name;
 
--- I asked Copilot to write this bit of code using the table I made in Excel.
--- I wanted to show some variety in teh way i populate my columns to show off my skillset.
+
+-- I asked Copilot to write this bit of code using the table I made in Excel
+-- I wanted to show some variety in teh way i populate my columns to show off my skillset
+
 WITH TeamMeta AS (
     SELECT *
     FROM (VALUES
@@ -340,7 +352,10 @@ WITH TeamMeta AS (
         ( 'Young Generation','Vietnam','Vietnam','Asia')
     ) AS X(CleanName, League_Server, Team_Country, Country_Continent)
 )
--- Fills the DIM_Team columns by matching the names in the data.
+
+
+-- Filling the DIM_Team columns by matching the names in the data
+
 UPDATE T
 SET 
     T.Team_Name_Clean   = M.CleanName,
@@ -351,5 +366,6 @@ FROM DIM_Team T
 JOIN TeamMeta M
     ON T.Team_Name = M.CleanName;
 
+-- Shows everything currently stored in DIM_Team for verification
 
 SELECT * FROM DIM_Team;

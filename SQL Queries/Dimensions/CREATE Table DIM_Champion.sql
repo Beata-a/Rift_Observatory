@@ -1,3 +1,8 @@
+-- Deleting DIM_Champion table IF it exists
+
+DROP TABLE IF EXISTS DIM_Champion;
+
+
 -- Creating DIM_Champion table
 
 CREATE TABLE DIM_Champion (
@@ -40,6 +45,6 @@ WHERE Name IS NOT NULL
 ORDER BY Release_Date;
 
 
--- Shows everything currently stored in DIM_Champion
+-- Shows everything currently stored in DIM_Champion for verification 
 
 Select * FROM DIM_Champion

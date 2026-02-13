@@ -1,11 +1,17 @@
+-- Deleting DIM_Tournament table IF it exists
+
+DROP TABLE IF EXISTS DIM_Tournament;
+
+
 -- Creating DIM_Tournament table
 
 CREATE TABLE DIM_Tournament (
     Tournament_ID INT IDENTITY(1,1) PRIMARY KEY,
-    Tournament_Name VARCHAR(250),
-    Tournament_Year INT,
+    Tournament_Name VARCHAR(250) NOT NULL,
+    Tournament_Year INT NOT NULL,
     Start_Date DATE,
-    End_Date DATE
+    End_Date DATE,
+    CONSTRAINT UQ_DIM_Tournament UNIQUE (Tournament_Name, Tournament_Year)
 );
 
 
@@ -21,17 +27,20 @@ INSERT INTO DIM_Tournament (
 
 -- Returns each tournament season with its name, year, and full match date range
 
+SELECT
+    s.Event        AS Tournament_Name,
+    s.Season       AS Tournament_Year,
+    MIN(s.Match_Date) AS Start_Date,
+    MAX(s.Match_Date) AS End_Date
+FROM Staging_Match_Stats s
+WHERE s.Event IS NOT NULL
+GROUP BY
+    s.Event,
+    s.Season;
+GO
 
-SELECT DISTINCT
-    Event AS Tournament_Name,
-    Season AS Tournament_Year,
-    MIN(Match_Date) OVER (PARTITION BY Event, Season) AS Start_Date,
-    MAX(Match_Date) OVER (PARTITION BY Event, Season) AS End_Date
-FROM Staging_Match_Stats
-WHERE Event IS NOT NULL
-ORDER BY Season, Event;
 
-
--- Shows everything currently stored in DIM_Tournament
+-- Shows everything currently stored in DIM_Tournament for verification
 
 SELECT * FROM DIM_Tournament
+
