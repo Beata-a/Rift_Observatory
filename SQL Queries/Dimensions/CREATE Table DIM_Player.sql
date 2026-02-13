@@ -28,7 +28,6 @@ WITH PlayerList AS (
 
         UNION ALL
 
-        -- From Staging_Worlds_2024
         SELECT Player FROM Staging_Worlds_2024
         UNION ALL
         SELECT Opponent_Player FROM Staging_Worlds_2024
