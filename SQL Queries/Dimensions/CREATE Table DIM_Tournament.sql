@@ -1,3 +1,5 @@
+-- Creating DIM_Tournament table
+
 CREATE TABLE DIM_Tournament (
     Tournament_ID INT IDENTITY(1,1) PRIMARY KEY,
     Tournament_Name VARCHAR(250),
@@ -6,12 +8,20 @@ CREATE TABLE DIM_Tournament (
     End_Date DATE
 );
 
+
+-- Populating DIM_Tournament using data from the Staging_Match_Stats
+
 INSERT INTO DIM_Tournament (
     Tournament_Name,
     Tournament_Year,
     Start_Date,
     End_Date
 )
+
+
+-- Returns each tournament season with its name, year, and full match date range
+
+
 SELECT DISTINCT
     Event AS Tournament_Name,
     Season AS Tournament_Year,
@@ -20,5 +30,8 @@ SELECT DISTINCT
 FROM Staging_Match_Stats
 WHERE Event IS NOT NULL
 ORDER BY Season, Event;
+
+
+-- Shows everything currently stored in DIM_Tournament
 
 SELECT * FROM DIM_Tournament

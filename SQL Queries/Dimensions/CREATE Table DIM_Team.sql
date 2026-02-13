@@ -1,4 +1,4 @@
---Creating DIM_Team
+--Creating DIM_Team table
 
 CREATE TABLE DIM_Team(
 	Team_ID INT IDENTITY(1,1) PRIMARY KEY,
@@ -16,7 +16,6 @@ SELECT DISTINCT Team FROM Staging_Worlds_2024
 
 ;
 
-SELECT * FROM DIM_Team;
 
 -- Using the DISTINCT values to help with cleaning There were some team names that were spelt wrng and some that had html code in them.
 -- Making a new staging table for this as it is faster than trying to update a table with 1000s of rows.

@@ -1,3 +1,5 @@
+-- Creating DIM_Date table
+
 CREATE TABLE DIM_Date (
     Date_ID INT PRIMARY KEY,
     Full_Date DATE,
@@ -12,8 +14,9 @@ CREATE TABLE DIM_Date (
 );
 
 
+-- Populating DIM_Date using a generated calendar covering 2010-2030
 
-;WITH DateRange AS (
+WITH DateRange AS (
     SELECT CAST('2010-01-01' AS DATE) AS TheDate
     UNION ALL
     SELECT DATEADD(DAY, 1, TheDate)
@@ -32,6 +35,10 @@ INSERT INTO DIM_Date (
     Day_Of_Week_Name,
     Is_Weekend
 )
+
+
+-- Returns a full calendar row for each date in the range
+
 SELECT
     CONVERT(INT, FORMAT(TheDate, 'yyyyMMdd')) AS Date_ID,
     TheDate AS Full_Date,
@@ -45,5 +52,8 @@ SELECT
     CASE WHEN DATENAME(WEEKDAY, TheDate) IN ('Saturday', 'Sunday') THEN 1 ELSE 0 END AS Is_Weekend
 FROM DateRange
 OPTION (MAXRECURSION 0);
+
+
+-- Shows everything currently stored in DIM_Date
 
 SELECT * FROM DIM_Date

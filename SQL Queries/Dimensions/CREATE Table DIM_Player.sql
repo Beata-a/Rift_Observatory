@@ -1,7 +1,12 @@
+-- Creating DIM_Player table
+
 CREATE TABLE DIM_Player(
     Player_ID INT IDENTITY(1,1) PRIMARY KEY,
     Player_Name VARCHAR(250)
 );
+
+
+-- Populating DIM_Player using data from the Staging_Match_Stats
 
 WITH PlayerList AS (
     SELECT DISTINCT Player_Name
@@ -36,8 +41,14 @@ WITH PlayerList AS (
       AND Player_Name <> ''
 )
 
+
+-- Returns a deduplicated list of all players found across both staging sources
+
 INSERT INTO DIM_Player (Player_Name)
 SELECT Player_Name
 FROM PlayerList;
+
+
+-- Shows everything currently stored in DIM_Player
 
 SELECT * FROM DIM_Player;

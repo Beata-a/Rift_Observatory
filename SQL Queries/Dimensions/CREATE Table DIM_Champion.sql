@@ -1,3 +1,5 @@
+-- Creating DIM_Champion table
+
 CREATE TABLE DIM_Champion (
     Champion_ID INT IDENTITY(1,1) PRIMARY KEY,
     Name VARCHAR(250),
@@ -10,6 +12,8 @@ CREATE TABLE DIM_Champion (
 );
 
 
+-- Populating DIM_Champion using Staging_LOL_Champions_2024
+
 INSERT INTO DIM_Champion (
     Name,
 	Title,
@@ -19,6 +23,10 @@ INSERT INTO DIM_Champion (
     Release_Date,
     Role
 )
+
+
+-- Returns a distinct list of champions with the defining attributes
+
 SELECT DISTINCT
     Name AS Name,
 	Nick_Name as Title,
@@ -31,5 +39,7 @@ FROM Staging_LOL_Champions_2024
 WHERE Name IS NOT NULL
 ORDER BY Release_Date;
 
+
+-- Shows everything currently stored in DIM_Champion
 
 Select * FROM DIM_Champion
